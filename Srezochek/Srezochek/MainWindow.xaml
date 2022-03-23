@@ -1,0 +1,75 @@
+﻿<Window x:Class="Srezochek.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:Srezochek"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Label>Дата начала</Label>
+                <DatePicker x:Name="dateStart" Width="150"></DatePicker>
+                <Label Margin="10,0,0,0" >Дата окончания</Label>
+                <DatePicker Name="dateEnd" Width="150"></DatePicker>
+                <Button x:Name="BtnEnter" Margin="20,0,0,0" Width="100" Background="Gray" Click="BtnEnter_ClickAsync" Foreground="White">Получить</Button>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0">
+                <DataGrid Grid.Row="1" x:Name="dg" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Клиент" Binding="{Binding Client.FirstName}"/>
+                        <DataGridTextColumn Header="Производитель" Binding="{Binding Telephones.Manufacturer}"/>
+                        <DataGridTextColumn Header="Наименование" Binding="{Binding Telephones.NameTelephone}"/>
+                        <DataGridTextColumn Header="Количество телефонов" Binding="{Binding Telephones.Count}"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Telephones.Cost}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label>Сформировать чек</Label>
+            <Border Background="LightGray" BorderBrush="Black" BorderThickness="2"> 
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button x:Name="CheckWord" Click="CheckWord_Click">
+                        <Image Height="40" Width="40" Source="res/WordIcon.png"></Image>
+                    </Button>
+                    <Button x:Name="CheckExcel" Click="CheckExcel_Click" Margin="10,0,0,0">
+                        <Image Height="40" Width="40" Source="res/ExcelIcon.png"></Image>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center">Сформировать отчетность</Label>
+            <Border Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="2">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                    <Button x:Name="WordOtchet" Click="WordOtchet_Click">
+                        <Image Height="40" Width="40" Source="res/WordIcon.png"></Image>
+                    </Button>
+                    <Button x:Name="ExcelOtchet" Click="ExcelOtchet_Click" Margin="10,0,0,0">
+                        <Image Height="40" Width="40" Source="res/ExcelIcon.png"></Image>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+            <ComboBox Height="20" x:Name="CmbCategory" Width="150">
+                <ComboBoxItem>Фирмы</ComboBoxItem>
+                <ComboBoxItem>Продажи</ComboBoxItem>
+            </ComboBox>
+            <lvc:PieChart Margin="25,0,0,0" Series="{Binding series}" Width="352" Height="200"></lvc:PieChart>
+        </StackPanel>
+    </Grid> 
+</Window>
